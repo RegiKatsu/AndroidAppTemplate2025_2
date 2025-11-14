@@ -7,9 +7,10 @@
 
     <TextView
         android:id="@+id/status_text"
-        android:text="Status do pedido"
+        android:text="Quantidade de KM percorrido"
         android:textStyle="bold"
-        android:textSize="16sp"
+        android:textSize="20sp"
+        android:textColor="#000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -17,7 +18,7 @@
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="18dp"
         android:progress="33"
         android:max="100"
         android:progressDrawable="@drawable/progress_bar_drawable" />
