@@ -52,7 +52,9 @@ class HomeFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
-
+    private var lastLocation: Location? = null
+    private var totalDistance = 0f
+    private lateinit var distanceTextView: TextView
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
@@ -80,7 +82,7 @@ class HomeFragment : Fragment() {
             val intent = Intent(context, AiLogicActivity::class.java)
             context.startActivity(intent)
         }
-
+        distanceTextView = view.findViewById(R.id.distanceTextView)
         return view
     }
 
@@ -136,7 +138,8 @@ class HomeFragment : Fragment() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
@@ -146,16 +149,27 @@ class HomeFragment : Fragment() {
 
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
-                locationResult.lastLocation?.let { location ->
-                    displayAddress(location)
+
+                val newLocation = locationResult.lastLocation ?: return
+
+                // ---- Cálculo da distância percorrida ----
+                lastLocation?.let { previous ->
+                    totalDistance += previous.distanceTo(newLocation)
                 }
+                lastLocation = newLocation
+
+                // Atualiza o texto mostrando a distância total
+                currentAddressTextView.text =
+                    "Distância percorrida: %.2f metros".format(totalDistance)
+
+                // Mantém a funcionalidade original →
+                displayAddress(newLocation)
             }
         }
 
         locationRequest = LocationRequest.create().apply {
-            interval = 30000 // Intervalo em milissegundos para atualizacoes de localizacao
-            fastestInterval =
-                30000 // O menor intervalo de tempo para receber atualizacoes de localizacao
+            interval = 30000
+            fastestInterval = 30000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
 
@@ -165,6 +179,7 @@ class HomeFragment : Fragment() {
             Looper.getMainLooper()
         )
     }
+
 
     private fun displayAddress(location: Location) {
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
