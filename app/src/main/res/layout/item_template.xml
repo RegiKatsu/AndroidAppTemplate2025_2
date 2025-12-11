@@ -32,6 +32,21 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/item_franquia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Franquia:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/item_modelo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modelo do Carro:"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <!-- Campos futuros aqui -->
         </LinearLayout>
     </LinearLayout>

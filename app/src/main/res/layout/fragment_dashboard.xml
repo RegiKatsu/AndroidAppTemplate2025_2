@@ -51,14 +51,32 @@
         android:hint="Locadora"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_select_image" />
+        app:layout_constraintTop_toBottomOf="@id/button_select_image"/>
+
+    <EditText
+        android:id="@+id/franquiaItemEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Franquia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enderecoItemEditText"/>
+
+    <EditText
+        android:id="@+id/modeloItemEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Modelo veículo:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/franquiaItemEditText"/>
 
     <Button
         android:id="@+id/salvarItemButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Salvar"
-        app:layout_constraintTop_toBottomOf="@id/enderecoItemEditText"
+        app:layout_constraintTop_toBottomOf="@id/modeloItemEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
